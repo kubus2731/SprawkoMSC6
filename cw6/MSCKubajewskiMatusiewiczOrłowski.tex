@@ -60,11 +60,165 @@
 Zapoznanie z sekwencyjnymi układami cyfrowymi.
 \section{Podstawa teoretyczna}
 
+Liczniki to sekwencyjne układy cyfrowe, których głównym zadaniem jest zliczanie impulsów wejściowych oraz przechowywanie wyniku w postaci binarnej. Podstawowym parametrem licznika jest jego pojemność. Licznik o pojemności $P$ nazywany jest licznikiem modulo $P$. Pojemność licznika jest zależna od liczby przerzutników, z których składa się licznik. Liczba przerzutników $n$ potrzebna do zbudowania licznika o pojemności $P$ musi spełniać warunek:
+\begin{equation}
+ P \le 2^n
+\end{equation}
+
+\subsection{Dwójka licząca}
+Podstawowym elementem budulcowym liczników jest tzw. „dwójka licząca”, czyli licznik modulo 2. Układ ten zmienia swój stan na przeciwny po każdym aktywnym zboczu sygnału zegarowego.
+
+\begin{itemize}
+    \item \textbf{Realizacja na przerzutniku JK:} Polega na podaniu stanu wysokiego („1”) na oba wejścia sterujące ($J$ oraz $K$). Przerzutnik pracuje wówczas w trybie przełączania.
+    \item \textbf{Realizacja na przerzutniku D:} Polega na wprowadzeniu pętli sprzężenia zwrotnego – wyjście $\overline{Q}$ (zanegowane) łączy się z wejściem $D$.
+\end{itemize}
+Dwójka licząca pełni również funkcję dzielnika częstotliwości przez 2, co jest fundamentem budowy liczników wielobitowych.
+
+\subsection{Liczniki asynchroniczne}
+W licznikach asynchronicznych szeregowych sygnał zegarowy doprowadzany jest tylko do wejścia pierwszego przerzutnika. Każdy kolejny przerzutnik jest taktowany sygnałem wyjściowym z poprzedniego bloku.
+
+\subsection{Liczniki rewersyjne}
+Liczniki mogą pracować w jednym z dwóch trybów zliczania:
+\begin{itemize}
+    \item \textbf{W górę:} Zwiększają zawartość o 1. W liczniku asynchronicznym zbudowanym na przerzutnikach reagujących na opadające zbocze, wyjście proste $Q$ poprzedniego stopnia steruje wejściem zegarowym następnego.
+    \item \textbf{W dół:} Zmniejszają zawartość o 1. Uzyskuje się to poprzez sterowanie kolejnych bloków z wyjść $\overline{Q}$ poprzedników.
+\end{itemize}
+Licznik rewersyjny łączy te dwie funkcjonalności, umożliwiając zmianę kierunku zliczania za pomocą dodatkowego sygnału sterującego, który decyduje, czy sygnał zegarowy dla następnego przerzutnika pobierany jest z wyjścia $Q$ czy $\overline{Q}$.
+
+\subsection{Liczniki pierścieniowe}
+Licznik pierścieniowy jest to sekwencyjny układ cyfrowy pracujący w kodzie „1 z n”. Podczas prawidłowego cyklu działania tylko jeden z bitów może mieć wartość „1”. Liczba stanów cyklu jest równa liczbie przerzutników tworzących układ.
+
+\begin{itemize}
+    \item Pracuje on zazwyczaj w kodzie „1 z n”, co oznacza, że w danym momencie tylko jeden przerzutnik jest w stanie wysokim, a ta „jedynka” krąży w pętli w takt impulsów zegarowych.
+    \item Wadą tego rozwiązania jest niewykorzystanie pełnej przestrzeni stanów (dla $n$ przerzutników mamy tylko $n$ stanów użytecznych, a nie $2^n$).
+    \item Odmianą tego układu jest \textbf{licznik Johnsona}, gdzie sprzężenie zwrotne bierze się z wyjścia zanegowanego ostatniego przerzutnika, co podwaja liczbę stanów ($2n$).
+\end{itemize}
+
 
 \section{Przebieg ćwiczeń}
 \subsection{Zadanie 1}
 Zaprojektuj i zrealizuj dwójkę liczącą na przerzutniku typu D i JK wykorzystując moduł
 laboratoryjny DB11. Zaobserwuj sygnały wyjściowe obu przerzutników.
+
+\subsubsection{Projektowanie układu - analiza wstępna}
+Na początku stworzono graf układu licznika.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
+      thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+      \node[main node] (0) {0};
+      \node[main node] (1) [right of=0] {1};
+
+      \path[every node/.style={font=\sffamily\small}]
+        (0) edge [bend left] node {} (1)
+        (1) edge [bend left] node {} (0);
+    \end{tikzpicture}
+    \caption{Graf układu licznika modulo 2}
+\end{figure}
+
+Na podstawie grafu wyznaczono tabelę przejść i wyjść licznika. $S$ jest bieżącym stanem, następna kolumna reprezentuje stan, do którego przechodzimy, a $Y$ jest wartością wyjścia licznika w stanie $S$.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{S} & \textbf{Stan nast.} & \textbf{Y} \\ \hline
+    0 & 1 & 0 \\ \hline
+    1 & 0 & 1 \\ \hline
+    \end{tabular}
+    \caption{Tabela przejść i wyjść}
+\end{table}
+
+W następnym kroku na podstawie powyższej tabeli stworzono zakodowaną tabelę przejść i wyjść. Bit $Q$ koduje stan bieżący, a bit $Q'$ koduje stan następny.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Q} & \textbf{Q'} & \textbf{Y} \\ \hline
+    0 & 1 & 0 \\ \hline
+    1 & 0 & 1 \\ \hline
+    \end{tabular}
+    \caption{Zakodowana tabela przejść}
+\end{table}
+
+Dzięki tej tabeli wyznaczono funkcję wyjścia licznika:
+\begin{equation}
+    Y_0 = Q
+\end{equation}
+
+Kroki projektowania dwójki liczącej na przerzutnikach typu D i JK do tego momentu nie różnią się.
+
+\subsubsection{Realizacja na przerzutniku typu D}
+Na początek kontynuujemy projektowanie dwójki liczącej na przerzutniku typu D. Poniżej przedstawiono ogólną tabelę wzbudzeń przerzutnika D:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+    \hline
+    \textbf{$Q \rightarrow Q'$} & \textbf{D} \\ \hline
+    $0 \rightarrow 0$ & 0 \\ \hline
+    $0 \rightarrow 1$ & 1 \\ \hline
+    $1 \rightarrow 0$ & 0 \\ \hline
+    $1 \rightarrow 1$ & 1 \\ \hline
+    \end{tabular}
+    \caption{Tabela wzbudzeń przerzutnika D}
+\end{table}
+
+Na podstawie zakodowanej tabeli przejść i wyjść oraz tabeli wzbudzeń przerzutnika D wyznaczono tabelę prawdy funkcji wejścia przerzutnika dla naszego licznika:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+    \hline
+    \textbf{Q} & \textbf{D} \\ \hline
+    0 & 1 \\ \hline
+    1 & 0 \\ \hline
+    \end{tabular}
+    \caption{Tabela funkcji wejścia dla licznika MOD 2 (Typ D)}
+\end{table}
+
+Mając wzory wejścia i wyjścia przerzutnika, skonstruowano dwójkę liczącą. Funkcja wejścia przyjmuje postać:
+\begin{equation}
+    D = Q' = \overline{Q}
+\end{equation}
+
+\subsubsection{Realizacja na przerzutniku typu JK}
+W kolejnych krokach zostało przedstawione projektowanie dwójki liczącej na przerzutniku typu JK.
+Poniżej ogólna tabela wzbudzeń przerzutnika JK:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{$Q \rightarrow Q'$} & \textbf{J} & \textbf{K} \\ \hline
+    $0 \rightarrow 0$ & 0 & - \\ \hline
+    $0 \rightarrow 1$ & 1 & - \\ \hline
+    $1 \rightarrow 0$ & - & 1 \\ \hline
+    $1 \rightarrow 1$ & - & 0 \\ \hline
+    \end{tabular}
+    \caption{Tabela wzbudzeń przerzutnika JK}
+\end{table}
+
+Na podstawie zakodowanej tabeli przejść i wyjść oraz tabeli wzbudzeń przerzutnika JK wyznaczono tabelę prawdy funkcji wejść przerzutnika. Dla przejścia $0 \rightarrow 1$ (gdy $Q=0$) wymagane jest $J=1, K=-$. Dla przejścia $1 \rightarrow 0$ (gdy $Q=1$) wymagane jest $J=-, K=1$.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Q} & \textbf{J} & \textbf{K} \\ \hline
+    0 & 1 & - \\ \hline
+    1 & - & 1 \\ \hline
+    \end{tabular}
+    \caption{Tabela funkcji wejść dla licznika MOD 2 (Typ JK)}
+\end{table}
+
+Następnie wyznaczono funkcje sterujące przerzutnikiem. Po uwzględnieniu stanów nieokreślonych ("-") jako jedynki logiczne dla uproszczenia układu, otrzymujemy:
+\begin{equation}
+    J = 1, \quad K = 1
+\end{equation}
 
 \subsubsection{Realizacja na przerzutniku typu D}
 Przerzutnik typu D przepisuje stan wejścia $D$ na wyjście $Q$ po wystąpieniu aktywnego zbocza zegara. Aby układ działał jako dwójka licząca, należy na wejście podać stan przeciwny do aktualnego. Równanie charakterystyczne licznika MOD 2 dla przerzutnika D przyjmuje postać:
@@ -183,6 +337,12 @@ Dodatkowo przetestowano funkcję resetowania za pomocą przycisku \textbf{S1}, k
     \label{fig:licznik_ripple}
 \end{figure}
 \section{Wnioski}
+Przeprowadzone ćwiczenia laboratoryjne pozwoliły na praktyczną weryfikację teoretycznych zasad działania układów sekwencyjnych, ze szczególnym uwzględnieniem liczników asynchronicznych. Realizacja dwójki liczącej w pierwszym zadaniu potwierdziła uniwersalność przerzutników typu D oraz JK. Wykazano, że poprzez wprowadzenie pętli sprzężenia zwrotnego w przerzutniku D (połączenie wyjścia zanegowanego-Q’ z wejściem-D) oraz ustawienie przerzutnika JK w tryb przełączania, oba układy poprawnie realizują funkcję dzielnika częstotliwości, generując na wyjściu sygnał o dwukrotnie mniejszej częstotliwości niż sygnał zegarowy.
+
+W trakcie badania 4-bitowego licznika asynchronicznego (Ripple Counter) zaobserwowano zależność kierunku zliczania od sposobu sterowania kolejnych stopni licznika. Zadanie potwierdziło, że sterowanie wejściem zegarowym następnego przerzutnika za pomocą wyjścia prostego poprzednika skutkuje zliczaniem w górę, natomiast wykorzystanie wyjścia zanegowanego powoduje zmianę trybu na zliczanie w dół. Choć konstrukcja ta charakteryzuje się prostotą, należy pamiętać o zjawisku sumowania się czasów propagacji przez kolejne bramki, co jest istotnym ograniczeniem w aplikacjach wymagających dużej szybkości działania.
+
+Ostatnia część ćwiczenia, dotycząca 8-bitowego licznika pierścieniowego, pozwoliła na analizę pracy układu w kodzie „1 z n”. Kluczowym wnioskiem płynącym z tego zadania jest konieczność poprawnej inicjalizacji układu poprzez wpisanie logicznej jedynki do pętli rejestru; bez tego wymuszenia licznik pozostaje w stanie jałowym. Mimo że rozwiązanie to jest mniej ekonomiczne pod względem liczby wykorzystanych przerzutników w stosunku do liczby uzyskiwanych stanów, jego niewątpliwą zaletą jest brak konieczności stosowania dodatkowych dekoderów wyjściowych, co upraszcza strukturę układów sterujących sekwencjami zdarzeń. Wszystkie zrealizowane układy działały zgodnie z założeniami teoretycznymi.
+
 
 
 \section{Literatura}
