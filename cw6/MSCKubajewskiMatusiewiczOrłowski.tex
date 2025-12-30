@@ -14,6 +14,7 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.17}
 \usepackage{longtable}
+\usetikzlibrary{arrows}
 
 \begin{document}
 
@@ -59,13 +60,13 @@
 \section{Cel ćwiczeń}
 Zapoznanie z sekwencyjnymi układami cyfrowymi.
 \section{Podstawa teoretyczna}
-Liczniki to sekwencyjne układy cyfrowe, których głównym zadaniem jest zliczanie impulsów wejściowych oraz przechowywanie wyniku w postaci binarnej. Podstawowym parametrem licznika jest jego pojemność. Licznik o pojemności $P$ nazywany jest licznikiem modulo $P$. Pojemność licznika jest zależna od liczby przerzutników, z których składa się licznik. Liczba przerzutników $n$ potrzebna do zbudowania licznika o pojemności $P$ musi spełniać warunek:
+Liczniki to sekwencyjne układy cyfrowe, których głównym zadaniem jest zliczanie impulsów wejściowych oraz przechowywanie wyniku w postaci binarnej. Podstawowym parametrem licznika jest jego pojemność. Licznik o pojemności $P$ nazywany jest licznikiem modulo $P$. Pojemność licznika jest zależna od liczby przerzutników, z których składa się licznik\cite{maciak,wiki_sequential,digital,wiki_couter,ufl_amd}. Liczba przerzutników $n$ potrzebna do zbudowania licznika o pojemności $P$ musi spełniać warunek:
 \begin{equation}
  P \le 2^n
 \end{equation}
 
 \subsection{Dwójka licząca}
-Podstawowym elementem budulcowym liczników jest tzw. „dwójka licząca”, czyli licznik modulo 2. Układ ten zmienia swój stan na przeciwny po każdym aktywnym zboczu sygnału zegarowego.
+Podstawowym elementem budulcowym liczników jest tzw. „dwójka licząca”, czyli licznik modulo 2. Układ ten zmienia swój stan na przeciwny po każdym aktywnym zboczu sygnału zegarowego\cite{maciak,ti-counters}.
 
 \begin{itemize}
     \item \textbf{Realizacja na przerzutniku JK:} Polega na podaniu stanu wysokiego („1”) na oba wejścia sterujące ($J$ oraz $K$). Przerzutnik pracuje wówczas w trybie przełączania.
@@ -74,7 +75,7 @@ Podstawowym elementem budulcowym liczników jest tzw. „dwójka licząca”, cz
 Dwójka licząca pełni również funkcję dzielnika częstotliwości przez 2, co jest fundamentem budowy liczników wielobitowych.
 
 \subsection{Liczniki asynchroniczne}
-W licznikach asynchronicznych szeregowych sygnał zegarowy doprowadzany jest tylko do wejścia pierwszego przerzutnika. Każdy kolejny przerzutnik jest taktowany sygnałem wyjściowym z poprzedniego bloku.
+W licznikach asynchronicznych szeregowych sygnał zegarowy doprowadzany jest tylko do wejścia pierwszego przerzutnika. Każdy kolejny przerzutnik jest taktowany sygnałem wyjściowym z poprzedniego bloku\cite{maciak,digital,wiki_couter}.
 
 \subsection{Liczniki rewersyjne}
 Liczniki mogą pracować w jednym z dwóch trybów zliczania:
@@ -82,43 +83,15 @@ Liczniki mogą pracować w jednym z dwóch trybów zliczania:
     \item \textbf{W górę:} Zwiększają zawartość o 1. W liczniku asynchronicznym zbudowanym na przerzutnikach reagujących na opadające zbocze, wyjście proste $Q$ poprzedniego stopnia steruje wejściem zegarowym następnego.
     \item \textbf{W dół:} Zmniejszają zawartość o 1. Uzyskuje się to poprzez sterowanie kolejnych bloków z wyjść $\overline{Q}$ poprzedników.
 \end{itemize}
-Licznik rewersyjny łączy te dwie funkcjonalności, umożliwiając zmianę kierunku zliczania za pomocą dodatkowego sygnału sterującego, który decyduje, czy sygnał zegarowy dla następnego przerzutnika pobierany jest z wyjścia $Q$ czy $\overline{Q}$.
+Licznik rewersyjny łączy te dwie funkcjonalności, umożliwiając zmianę kierunku zliczania za pomocą dodatkowego sygnału sterującego, który decyduje, czy sygnał zegarowy dla następnego przerzutnika pobierany jest z wyjścia $Q$ czy $\overline{Q}$\cite{maciak,digital,wiki_couter,pldworld}.
 
 \subsection{Liczniki pierścieniowe}
-Licznik pierścieniowy jest to sekwencyjny układ cyfrowy pracujący w kodzie „1 z n”. Podczas prawidłowego cyklu działania tylko jeden z bitów może mieć wartość „1”. Liczba stanów cyklu jest równa liczbie przerzutników tworzących układ.
-
-Liczniki to sekwencyjne układy cyfrowe, których głównym zadaniem jest zliczanie impulsów wejściowych oraz przechowywanie wyniku w postaci binarnej. Podstawowym parametrem licznika jest jego pojemność. Licznik o pojemności $P$ nazywany jest licznikiem modulo $P$. Pojemność licznika jest zależna od liczby przerzutników, z których składa się licznik. Liczba przerzutników $n$ potrzebna do zbudowania licznika o pojemności $P$ musi spełniać warunek:
-\begin{equation}
- P \le 2^n
-\end{equation}
-
-\subsection{Dwójka licząca}
-Podstawowym elementem budulcowym liczników jest tzw. „dwójka licząca”, czyli licznik modulo 2. Układ ten zmienia swój stan na przeciwny po każdym aktywnym zboczu sygnału zegarowego.
+Licznik pierścieniowy jest to sekwencyjny układ cyfrowy pracujący w kodzie „1 z n”. Podczas prawidłowego cyklu działania tylko jeden z bitów może mieć wartość „1”. Liczba stanów cyklu jest równa liczbie przerzutników tworzących układ\cite{maciak,digital,wiki_couter,wiki_ring,pldworld}.
 
 \begin{itemize}
-    \item \textbf{Realizacja na przerzutniku JK:} Polega na podaniu stanu wysokiego („1”) na oba wejścia sterujące ($J$ oraz $K$). Przerzutnik pracuje wówczas w trybie przełączania.
-    \item \textbf{Realizacja na przerzutniku D:} Polega na wprowadzeniu pętli sprzężenia zwrotnego – wyjście $\overline{Q}$ (zanegowane) łączy się z wejściem $D$.
-\end{itemize}
-Dwójka licząca pełni również funkcję dzielnika częstotliwości przez 2, co jest fundamentem budowy liczników wielobitowych.
-
-\subsection{Liczniki asynchroniczne}
-W licznikach asynchronicznych szeregowych sygnał zegarowy doprowadzany jest tylko do wejścia pierwszego przerzutnika. Każdy kolejny przerzutnik jest taktowany sygnałem wyjściowym z poprzedniego bloku.
-
-\subsection{Liczniki rewersyjne}
-Liczniki mogą pracować w jednym z dwóch trybów zliczania:
-\begin{itemize}
-    \item \textbf{W górę:} Zwiększają zawartość o 1. W liczniku asynchronicznym zbudowanym na przerzutnikach reagujących na opadające zbocze, wyjście proste $Q$ poprzedniego stopnia steruje wejściem zegarowym następnego.
-    \item \textbf{W dół:} Zmniejszają zawartość o 1. Uzyskuje się to poprzez sterowanie kolejnych bloków z wyjść $\overline{Q}$ poprzedników.
-\end{itemize}
-Licznik rewersyjny łączy te dwie funkcjonalności, umożliwiając zmianę kierunku zliczania za pomocą dodatkowego sygnału sterującego, który decyduje, czy sygnał zegarowy dla następnego przerzutnika pobierany jest z wyjścia $Q$ czy $\overline{Q}$.
-
-\subsection{Liczniki pierścieniowe}
-Licznik pierścieniowy jest to sekwencyjny układ cyfrowy pracujący w kodzie „1 z n”. Podczas prawidłowego cyklu działania tylko jeden z bitów może mieć wartość „1”. Liczba stanów cyklu jest równa liczbie przerzutników tworzących układ.
-
-\begin{itemize}
-    \item Pracuje on zazwyczaj w kodzie „1 z n”, co oznacza, że w danym momencie tylko jeden przerzutnik jest w stanie wysokim, a ta „jedynka” krąży w pętli w takt impulsów zegarowych.
-    \item Wadą tego rozwiązania jest niewykorzystanie pełnej przestrzeni stanów (dla $n$ przerzutników mamy tylko $n$ stanów użytecznych, a nie $2^n$).
-    \item Odmianą tego układu jest \textbf{licznik Johnsona}, gdzie sprzężenie zwrotne bierze się z wyjścia zanegowanego ostatniego przerzutnika, co podwaja liczbę stanów ($2n$).
+	\item Pracuje on zazwyczaj w kodzie „1 z n”, co oznacza, że w danym momencie tylko jeden przerzutnik jest w stanie wysokim, a ta „jedynka” krąży w pętli w takt impulsów zegarowych.
+	\item Wadą tego rozwiązania jest niewykorzystanie pełnej przestrzeni stanów (dla $n$ przerzutników mamy tylko $n$ stanów użytecznych, a nie $2^n$).
+	\item Odmianą tego układu jest \textbf{licznik Johnsona}, gdzie sprzężenie zwrotne bierze się z wyjścia zanegowanego ostatniego przerzutnika, co podwaja liczbę stanów ($2n$).
 \end{itemize}
 
 
@@ -354,7 +327,7 @@ Układ został zaprojektowany i uruchomiony w programie Multisim. Poprawność p
 Przebadać działanie 8-bitowego licznika cyklicznego (ang. Ring Counter) wykorzystując
 moduł laboratoryjny DB37.
 
-Weryfikacja działania układu polegała na ręcznym sterowaniu sygnałem zegarowym za pomocą przycisku \textbf{S3}. Obserwacja diod LED (\textbf{L1}--\textbf{L8}) pozwoliła potwierdzić poprawność logiczną układu: każde wciśnięcie przycisku powodowało cykliczne przemieszczanie się stanu aktywnego (zapalona dioda) na kolejną pozycję. Po osiągnięciu ostatniego bitu, cykl rozpoczynał się od nowa.
+Weryfikacja działania układu polegała na ręcznym sterowaniu sygnałem zegarowym za pomocą przycisku \textbf{S2}. Obserwacja diod LED (\textbf{L1}--\textbf{L8}) pozwoliła potwierdzić poprawność logiczną układu: każde wciśnięcie przycisku powodowało cykliczne przemieszczanie się stanu aktywnego (zapalona dioda) na kolejną pozycję. Po osiągnięciu ostatniego bitu, cykl rozpoczynał się od nowa.
 
 Dodatkowo przetestowano funkcję resetowania za pomocą przycisku \textbf{S1}, którego wciśnięcie powodowało natychmiastowe wyzerowanie licznika (zgaszenie wszystkich diod).
 \begin{figure}[h!]
@@ -363,6 +336,18 @@ Dodatkowo przetestowano funkcję resetowania za pomocą przycisku \textbf{S1}, k
     \caption{Realizacja 8-bitowego licznika cyklicznego}
     \label{fig:licznik_ripple}
 \end{figure}
+\pagebreak
+
+\section{Dyskusja błędów}
+
+W ramach przeprowadzonych zadań zrealizowano szereg układów sekwencyjnych wykorzystując moduły laboratoryjne DB11, DB14 oraz DB37, a poprawność ich działania weryfikowano poprzez bezpośrednią obserwację stanów na diodach LED oraz wyświetlaczu 8-segmentowym.\\
+
+W zadaniu pierwszym, podczas realizacji dwójki liczącej na przerzutnikach typu D i JK, stany logiczne obserwowano jako zapalanie i gaszenie diod wyjściowych w takt sygnału zegarowego. Mimo pełnej zgodności logicznej z tabelami przejść, należy zauważyć, że te stany są w rzeczywistości poziomami napięć prądu stałego. Rozbieżność między idealnym modelem a rzeczywistością wynika z charakterystyk elektrycznych układów scalonych, gdzie stan niski nie jest idealnym potencjałem 0 V, lecz posiada określoną wartość napięcia wynikającą ze spadków na złączach tranzystorów wyjściowych. Zjawisko to oraz szczegółowa analiza poziomów napięć dla stanów logicznych były przedmiotem badań grupy w ramach wcześniejszych zajęć laboratoryjnych \cite{poprzednie}.\\
+
+W zadaniu drugim, przy budowie 4-bitowego licznika asynchronicznego na module DB14, wyniki zliczania obserwowano bezpośrednio na diodach podłączonych do wyjść $Q_0 \dots Q_3$. Istotnym źródłem potencjalnych błędów była jakość połączeń fizycznych (przewodów laboratoryjnych) łączących wyjścia przerzutników z wejściami zegarowymi kolejnych stopni. Jakakolwiek niestabilność styków mogłaby prowadzić do błędnego odczytu stanów przez diody lub ich migotania. Dodatkowo, specyfika licznika asynchronicznego sprawia, że przy przełączaniu stanów (np. z 7 na 8) diody LED mogą przez ułamki sekund przechodzić przez stany nieustalone, wynikające z sumowania się czasów propagacji sygnału przez kolejne kostki układów scalonych. Przy taktowaniu 10 Hz błąd ten był niedostrzegalny dla oka, jednak stanowi on fizyczne ograniczenie częstotliwości pracy tak zrealizowanego licznika.\\
+
+W zadaniu trzecim zbadano 8-bitowy licznik pierścieniowy na module DB37. W tym przypadku układ był taktowany  sygnałem zegarowym, a rola operatora polegała na ręcznym „wstrzyknięciu” stanu wysokiego do pętli za pomocą przycisku \textbf{S2}. Fizyczna obserwacja świecącej diody przemieszczającej się między \textbf{L1} a \textbf{L8} pozwoliła zidentyfikować specyficzne źródła błędów. Największą trudność stanowiła synchronizacja ręcznego wprowadzania danych z biegnącym zegarem – zbyt długie przytrzymanie przycisku skutkowało wprowadzeniem do pętli kilku sąsiednich jedynek zamiast jednej, co naruszało zasadę pracy w kodzie „1 z n”. Ponadto, mechaniczne drgania styków przycisku wprowadzającego liczbę mogły generować szumy interpretowane przez pierwszy przerzutnik jako seria szybkich zmian stanu. Wykazano również, że bez fizycznej inicjalizacji układu i ręcznego dodania impulsu, licznik pozostaje w stanie jałowym (wszystkie diody zgaszone), co wynika z braku krążącego sygnału w zamkniętej pętli rejestru.\\
+
 \section{Wnioski}
 Przeprowadzone ćwiczenia laboratoryjne pozwoliły na praktyczną weryfikację teoretycznych zasad działania układów sekwencyjnych, ze szczególnym uwzględnieniem liczników asynchronicznych. Realizacja dwójki liczącej w pierwszym zadaniu potwierdziła uniwersalność przerzutników typu D oraz JK. Wykazano, że poprzez wprowadzenie pętli sprzężenia zwrotnego w przerzutniku D (połączenie wyjścia zanegowanego-Q’ z wejściem-D) oraz ustawienie przerzutnika JK w tryb przełączania, oba układy poprawnie realizują funkcję dzielnika częstotliwości, generując na wyjściu sygnał o dwukrotnie mniejszej częstotliwości niż sygnał zegarowy.
 
@@ -375,8 +360,49 @@ Ostatnia część ćwiczenia, dotycząca 8-bitowego licznika pierścieniowego, p
 \section{Literatura}
 \renewcommand{\refname}{}
 \begin{thebibliography}{9}
-
+	
+	\bibitem{maciak} 
+	T. Maciak, \textit{Skrypt do laboratorium Elektroniki cyfrowej}, 
+	Wydział Informatyki Politechniki Białostockiej, Białystok, 2021.
+	
+	\bibitem{wiki_sequential}
+	\textit{Sequential logic}, Wikipedia, dostęp online:
+	\url{https://en.wikipedia.org/wiki/Sequential_logic},
+	data dostępu: Marzec 2025.
+	
+	\bibitem{ti-counters}
+	\textit{Decade, Devide-By-Twelve and Binary Counters}, Texas Instruments, dostęp online: \url{https://www.ti.com/lit/ds/symlink/sn54ls90.pdf?ts=1766830741322},
+	data dostepu: październik 2025.
+	
+	\bibitem{digital}
+	M. Morris Mano, Michael D. Ciletti, \textit{Digital Design With an Introduction to the Verilog HDL 5th Edition}, dostęp online:\url{https://jrasti.ir/wp-content/uploads/2024/09/Digital-design-with-an-introduction-to-the-verilog-hdl-5th-edition.pdf},
+	data dostępu: wrzesień 2024.
+	
+	\bibitem{wiki_couter}
+	\textit{Counter (digital)}, Wikipedia, dostęp online:
+	\url{https://en.wikipedia.org/wiki/Counter_(digital)},
+	data dostępu: grudzień 2025.
+	
+	\bibitem{ufl_amd}
+	\textit{Registered Logic Design}, University of Florida - Machine Intelligence Laboratory, dodstęp onlie:
+	\url{https://mil.ufl.edu/4712/docs/PLD_Basics/RegisteredLogicDesign.pdf}
+	
+	\bibitem{wiki_ring}
+	\textit{Ring counter}, Wikipedia, dostęp online:
+	\url{https://en.wikipedia.org/wiki/Ring_counter},
+	data dostępu: grudzień 2025.
+	
+	\bibitem{pldworld}
+	\textit{Counters and shift registers}, PLD World - FPGA/HDL Resources, 
+	dostęp online: \url{http://ebook.pldworld.com/_eBook/FPGA%EF%BC%8FHDL/-Examples-/counters%20and%20shift%20registers.pdf}, 
+	data dostępu: grudzień 2025.
+	
+	\bibitem{poprzednie} 
+	K. Kubajewski, B. Orłowski, J. Matusiewicz, \textit{Sprawozdanie z laboratorium nr 2: Parametry statyczne i dynamiczne bramek oraz przerzutników}, Wydział Informatyki Politechniki Białostockiej, Białystok, 15 października 2025.
+	
 \end{thebibliography}
+
+\pagebreak
 
 \section{Protokół}
 \begin{figure}[h]
