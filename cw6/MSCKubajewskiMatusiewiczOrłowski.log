@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.26)  30 DEC 2025 17:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.26)  20 JAN 2026 23:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -852,12 +852,12 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <obwod2.PNG, id=39, 795.57225pt x 302.3295pt>
 File: obwod2.PNG Graphic file (type png)
 <use obwod2.PNG>
-Package pdftex.def Info: obwod2.PNG  used on input line 321.
+Package pdftex.def Info: obwod2.PNG  used on input line 322.
 (pdftex.def)             Requested size: 310.4979pt x 117.99106pt.
 <obwod3.PNG, id=40, 757.02824pt x 250.536pt>
 File: obwod3.PNG Graphic file (type png)
 <use obwod3.PNG>
-Package pdftex.def Info: obwod3.PNG  used on input line 335.
+Package pdftex.def Info: obwod3.PNG  used on input line 336.
 (pdftex.def)             Requested size: 310.4979pt x 102.75864pt.
 
 
@@ -866,22 +866,22 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 [7 <./obwod2.PNG>]
-Underfull \hbox (badness 10000) in paragraph at lines 343--344
+Underfull \hbox (badness 10000) in paragraph at lines 344--345
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 345--346
+Underfull \hbox (badness 10000) in paragraph at lines 346--347
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 347--348
+Underfull \hbox (badness 10000) in paragraph at lines 348--349
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 349--350
+Underfull \hbox (badness 10000) in paragraph at lines 350--351
 
  []
 
@@ -890,37 +890,37 @@ Underfull \hbox (badness 10000) in paragraph at lines 349--350
 [8 <./obwod3.PNG>]
 
 [9]
-Underfull \hbox (badness 2573) in paragraph at lines 374--376
+Underfull \hbox (badness 2573) in paragraph at lines 375--377
 []\T1/cmr/m/it/10 Decade, Devide-By-Twelve and Bi-nary Co-un-ters\T1/cmr/m/n/10
  , Te-xas In-stru-ments,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 378--380
+Underfull \hbox (badness 10000) in paragraph at lines 379--381
 []\T1/cmr/m/n/10 M. Mor-ris Mano, Mi-chael D. Ci-letti, \T1/cmr/m/it/10 Di-gi-t
 al De-sign With
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 378--380
+Underfull \hbox (badness 10000) in paragraph at lines 379--381
 \T1/cmr/m/it/10 an In-tro-duc-tion to the Ve-ri-log HDL 5th Edi-tion\T1/cmr/m/n
 /10 , do-st�p
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 378--380
+Underfull \hbox (badness 10000) in paragraph at lines 379--381
 \T1/cmr/m/n/10 online:$\T1/cmtt/m/n/10 https : / / jrasti . ir / wp-[]content /
  uploads / 2024 / 09 /
  []
 
 
-Overfull \hbox (27.2171pt too wide) in paragraph at lines 378--380
+Overfull \hbox (27.2171pt too wide) in paragraph at lines 379--381
 \T1/cmtt/m/n/10 Digital-[]design-[]with-[]an-[]introduction-[]to-[]the-[]verilo
 g-[]hdl-[]5th-[]edition .
  []
 
 
-Underfull \hbox (badness 2521) in paragraph at lines 396--399
+Underfull \hbox (badness 2521) in paragraph at lines 397--400
 []\T1/cmr/m/it/10 Counters and shift re-gi-sters\T1/cmr/m/n/10 , PLD World - FP
 GA/HDL Re-so-ur-ces,
  []
@@ -931,7 +931,7 @@ GA/HDL Re-so-ur-ces,
 <protokol.PNG, id=57, 316.7835pt x 460.72125pt>
 File: protokol.PNG Graphic file (type png)
 <use protokol.PNG>
-Package pdftex.def Info: protokol.PNG  used on input line 410.
+Package pdftex.def Info: protokol.PNG  used on input line 411.
 (pdftex.def)             Requested size: 276.00105pt x 401.40775pt.
 
 
@@ -969,7 +969,7 @@ Users/kubam/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.p
 fb><C:/Users/kubam/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm
 /cmsy10.pfb><C:/Users/kubam/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
 sfonts/cm/cmsy7.pfb>
-Output written on MSCKubajewskiMatusiewiczOrłowski.pdf (11 pages, 907025 bytes
+Output written on MSCKubajewskiMatusiewiczOrłowski.pdf (11 pages, 907081 bytes
 ).
 PDF statistics:
  431 PDF objects out of 1000 (max. 8388607)
